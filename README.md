@@ -1,2 +1,2 @@
-# Cpluplustestat2
+# Cplusplustestat2
 Second Testat for the C++ Course at HSR.
