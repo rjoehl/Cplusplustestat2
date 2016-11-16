@@ -1,12 +1,31 @@
 #include "Word.h"
 
+#include <iterator>
+#include <algorithm>
 
 Word::Word() {
 
 }
 
 std::istream & Word::read(std::istream &stream) {
-	stream >> str;
+	str.erase();
+	std::istreambuf_iterator<char> it{stream};
+	std::istreambuf_iterator<char> end{};
+	stream.peek();
+	for (; it != end; ++it) {
+		auto c = *it;
+		if (std::isalpha(c)) {
+			break;
+		}
+	}
+	for (; it != end; ++it) {
+		auto c = *it;
+		if (!std::isalpha(c)) {
+			break;
+		}
+		str.append(1,c);
+	}
+	auto is_eof = stream.eof();
 	return stream;
 }
 

@@ -6,7 +6,7 @@
 
 class Word {
 private:
-	std::string str;
+	std::string str{};
 public:
 	Word();
 
