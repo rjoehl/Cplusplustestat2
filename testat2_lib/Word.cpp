@@ -45,6 +45,19 @@ std::string Word::to_str() const {
 	return str;
 }
 
+bool operator<(const Word &lhs, const Word &rhs) {
+	auto lhs_it = begin(lhs.to_str()), lhs_end = end(lhs.to_str()),
+				rhs_it = begin(rhs.to_str()), rhs_end = end(rhs.to_str());
+	for ( ; lhs_it != lhs_end && rhs_it != rhs_end; ++lhs_it, ++rhs_it) {
+		if (*lhs_it > *rhs_it) {
+			return false;
+		} else if (*lhs_it < *rhs_it) {
+			return true;
+		}
+	}
+	return lhs_it == lhs_end && rhs_it == rhs_end;
+}
+
 std::istream& operator>>(std::istream& stream, Word &w) {
 	return w.read(stream);
 }

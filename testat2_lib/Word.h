@@ -17,6 +17,8 @@ public:
 	std::string to_str() const;
 };
 
+bool operator<(const Word &lhs, const Word &rhs);
+
 std::istream & operator>>(std::istream &stream, Word &w);
 
 std::ostream& operator<<(std::ostream& stream, const Word &w);
