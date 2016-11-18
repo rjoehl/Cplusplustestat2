@@ -85,8 +85,6 @@ int compare(const Word &lhs, const Word &rhs) {
 	auto lhs_it = begin(lhs_str), lhs_end = end(lhs_str),
 			rhs_it = begin(rhs_str), rhs_end = end(rhs_str);
 	for ( ; lhs_it != lhs_end && rhs_it != rhs_end; ++lhs_it, ++rhs_it) {
-		auto test = lhs_it != lhs_end;
-		auto test2 = rhs_it != rhs_end;
 		if (*lhs_it < *rhs_it) {
 			return -1;
 		} else if (*lhs_it > *rhs_it) {
