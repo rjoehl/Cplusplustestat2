@@ -17,9 +17,17 @@ public:
 	std::string to_str() const;
 };
 
+bool operator==(const Word &lhs, const Word &rhs);
+
+bool operator!=(const Word &lhs, const Word &rhs);
+
 bool operator<(const Word &lhs, const Word &rhs);
 
+bool operator<=(const Word &lhs, const Word &rhs);
+
 bool operator>(const Word &lhs, const Word &rhs);
+
+bool operator>=(const Word &lhs, const Word &rhs);
 
 std::istream & operator>>(std::istream &stream, Word &w);
 

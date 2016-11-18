@@ -43,6 +43,30 @@ void wordGreaterThanOperatorTest() {
 	ASSERT_GREATER(w1, w2);
 }
 
+void wordEqualOperatorTest() {
+	std::string s1{"aabc"}, s2{"aabc"};
+	Word w1{s1}, w2{s2};
+	ASSERT_EQUAL(w1, w2);
+}
+
+void wordNotEqualOperatorTest() {
+	std::string s1{"aabc"}, s2{"aacd"};
+	Word w1{s1}, w2{s2};
+	ASSERT_NOT_EQUAL_TO(w1, w2);
+}
+
+void wordLessOrEqualThanOperatorTest() {
+	std::string s1{"aabc"}, s2{"aacd"};
+	Word w1{s1}, w2{s2};
+	ASSERT_LESS_EQUAL(w1, w2);
+}
+
+void wordGreaterOrEqualThanOperatorTest() {
+	std::string s1{"aabc"}, s2{"aacd"};
+	Word w1{s2}, w2{s1};
+	ASSERT_GREATER_EQUAL(w1, w2);
+}
+
 bool runAllTests(int argc, char const *argv[]) {
 	cute::suite s { };
 	s.push_back(CUTE(wordInputTest));
@@ -50,6 +74,10 @@ bool runAllTests(int argc, char const *argv[]) {
 	s.push_back(CUTE(wordOutputlTest));
 	s.push_back(CUTE(wordLessThanOperatorTest));
 	s.push_back(CUTE(wordGreaterThanOperatorTest));
+	s.push_back(CUTE(wordEqualOperatorTest));
+	s.push_back(CUTE(wordNotEqualOperatorTest));
+	s.push_back(CUTE(wordLessOrEqualThanOperatorTest));
+	s.push_back(CUTE(wordGreaterOrEqualThanOperatorTest));
 	cute::xml_file_opener xmlfile(argc, argv);
 	cute::xml_listener<cute::ide_listener<>> lis(xmlfile.out);
 	auto runner { cute::makeRunner(lis, argc, argv) };
