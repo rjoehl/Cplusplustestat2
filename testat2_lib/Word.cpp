@@ -17,9 +17,8 @@ Word::Word(std::string &s) {
 }
 
 std::istream & Word::read(std::istream &stream) {
-	char c;
 	while (true) {
-		c = stream.peek();
+		char c = stream.peek();
 		if (!stream.good()) {
 			stream.setstate(std::ios_base::failbit);
 			return stream;
@@ -32,7 +31,7 @@ std::istream & Word::read(std::istream &stream) {
 
 	str.erase();
 	while (true) {
-		c = stream.peek();
+		char c = stream.peek();
 		if (!stream.good() || !std::isalpha(c)) {
 			return stream;
 		} else {
