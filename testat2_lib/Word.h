@@ -19,6 +19,6 @@ public:
 
 std::istream & operator>>(std::istream &stream, Word &w);
 
-std::ostream& operator<<(std::ostream& stream, Word &w);
+std::ostream& operator<<(std::ostream& stream, const Word &w);
 
 #endif /* WORD_H_ */

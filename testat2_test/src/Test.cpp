@@ -31,6 +31,8 @@ void wordOutputlTest() {
 	ASSERT_EQUAL(s, result);
 }
 
+
+
 bool runAllTests(int argc, char const *argv[]) {
 	cute::suite s { };
 	s.push_back(CUTE(wordInputTest));

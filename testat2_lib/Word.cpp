@@ -49,7 +49,7 @@ std::istream& operator>>(std::istream& stream, Word &w) {
 	return w.read(stream);
 }
 
-std::ostream& operator<<(std::ostream& stream, Word &w) {
+std::ostream& operator<<(std::ostream& stream, const Word &w) {
 	stream << w.to_str();
 	return stream;
 }
