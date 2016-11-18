@@ -4,6 +4,7 @@
 #include "cute_runner.h"
 
 #include "word.h"
+#include "kwic.h"
 #include <string>
 #include <sstream>
 #include <vector>
@@ -67,6 +68,73 @@ void wordGreaterOrEqualThanOperatorTest() {
 	ASSERT_GREATER_EQUAL(w1, w2);
 }
 
+void readWordsTest() {
+	std::istringstream input{"compl33tely ~ weird !!?"};
+	std::vector<Word> words = read_words(input);
+	std::string s1{"compl"}, s2{"tely"}, s3{"weird"};
+	Word w1{s1}, w2{s2}, w3{s3};
+	std::vector<Word> expected{w1, w2, w3};
+	ASSERT_EQUAL(expected, words);
+}
+
+void kwicTest() {
+	std::string s1{"compl"}, s2{"tely"}, s3{"weird"};
+	Word w1{s1}, w2{s2}, w3{s3};
+	std::vector<Word> words{w1, w2, w3};
+	std::set<std::vector<Word>> actual = kwic(words);
+	std::set<std::vector<Word>> expected{
+		{w1, w2, w3},
+		{w2, w3, w1},
+		{w3, w1, w2},
+	};
+	ASSERT_EQUAL(expected, actual);
+}
+
+void sortCombinationsTest() {
+	std::string s1{"compl"}, s2{"asdf"}, s3{"weird"};
+	Word w1{s1}, w2{s2}, w3{s3};
+	std::set<std::vector<Word>> combinations{
+		{w1, w2, w3},
+		{w2, w3, w1},
+		{w3, w1, w2},
+	};
+	std::vector<std::vector<Word>> actual = sort_combinations(combinations);
+	std::vector<std::vector<Word>> expected{
+		{w2, w3, w1},
+		{w1, w2, w3},
+		{w3, w1, w2},
+	};
+	ASSERT_EQUAL(expected, actual);
+}
+
+void writeCombinationsTest() {
+	std::ostringstream out{};
+	std::string s1{"compl"}, s2{"asdf"}, s3{"weird"};
+	Word w1{s1}, w2{s2}, w3{s3};
+	std::vector<std::vector<Word>> combinations{
+		{w2, w3, w1},
+		{w1, w2, w3},
+		{w3, w1, w2},
+	};
+	write_combinations(combinations, out);
+	std::string expected(
+			"asdf weird compl \n"
+			"compl asdf weird \n"
+			"weird compl asdf \n");
+	ASSERT_EQUAL(expected, out.str());
+}
+
+void kwicIOTest() {
+	std::istringstream in{"compl33asdf ~ weird !!?"};
+	std::ostringstream out{};
+	kwic_io(in, out);
+	std::string expected(
+			"asdf weird compl \n"
+			"compl asdf weird \n"
+			"weird compl asdf \n");
+	ASSERT_EQUAL(expected, out.str());
+}
+
 bool runAllTests(int argc, char const *argv[]) {
 	cute::suite s { };
 	s.push_back(CUTE(wordInputTest));
@@ -78,6 +146,11 @@ bool runAllTests(int argc, char const *argv[]) {
 	s.push_back(CUTE(wordNotEqualOperatorTest));
 	s.push_back(CUTE(wordLessOrEqualThanOperatorTest));
 	s.push_back(CUTE(wordGreaterOrEqualThanOperatorTest));
+	s.push_back(CUTE(readWordsTest));
+	s.push_back(CUTE(kwicTest));
+	s.push_back(CUTE(sortCombinationsTest));
+	s.push_back(CUTE(writeCombinationsTest));
+	s.push_back(CUTE(kwicIOTest));
 	cute::xml_file_opener xmlfile(argc, argv);
 	cute::xml_listener<cute::ide_listener<>> lis(xmlfile.out);
 	auto runner { cute::makeRunner(lis, argc, argv) };
