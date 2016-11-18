@@ -65,8 +65,9 @@ std::ostream& operator<<(std::ostream& stream, const Word &w) {
 }
 
 int compare(const Word &lhs, const Word &rhs) {
-	auto lhs_it = begin(lhs.to_str()), lhs_end = end(lhs.to_str()),
-			rhs_it = begin(rhs.to_str()), rhs_end = end(rhs.to_str());
+	auto lhs_str = lhs.to_str(), rhs_str = rhs.to_str();
+	auto lhs_it = begin(lhs_str), lhs_end = end(lhs_str),
+			rhs_it = begin(rhs_str), rhs_end = end(rhs_str);
 	for ( ; lhs_it != lhs_end && rhs_it != rhs_end; ++lhs_it, ++rhs_it) {
 		if (*lhs_it < *rhs_it) {
 			return -1;
