@@ -7,6 +7,7 @@
 #include <string>
 #include <sstream>
 #include <vector>
+#include <stdexcept>
 
 void wordInputTest() {
 	std::istringstream input{"compl33tely ~ weird !!??!! 4matted in_put"};
@@ -16,9 +17,25 @@ void wordInputTest() {
 	ASSERT_EQUAL(expected, words);
 }
 
+void wordConstructorInvalidArgumentTest() {
+	std::string s{"compl33tely"};
+	ASSERT_THROWS(Word w{s}, std::invalid_argument);
+}
+
+void wordOutputlTest() {
+	std::string s{"completely"};
+	Word w{s};
+	std::ostringstream output{};
+	output << w;
+	std::string result = output.str();
+	ASSERT_EQUAL(s, result);
+}
+
 bool runAllTests(int argc, char const *argv[]) {
 	cute::suite s { };
 	s.push_back(CUTE(wordInputTest));
+	s.push_back(CUTE(wordConstructorInvalidArgumentTest));
+	s.push_back(CUTE(wordOutputlTest));
 	cute::xml_file_opener xmlfile(argc, argv);
 	cute::xml_listener<cute::ide_listener<>> lis(xmlfile.out);
 	auto runner { cute::makeRunner(lis, argc, argv) };

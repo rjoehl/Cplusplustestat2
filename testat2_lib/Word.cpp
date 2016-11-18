@@ -1,10 +1,19 @@
 #include "Word.h"
 
-#include <iterator>
 #include <algorithm>
+#include <stdexcept>
 
 Word::Word() {
 
+}
+
+Word::Word(std::string &s) {
+	std::for_each(begin(s), end(s), [this](auto &c) {
+		if (!std::isalpha(c)) {
+			throw std::invalid_argument("s must contain only alphabetical characters.");
+		}
+		str += c;
+	});
 }
 
 std::istream & Word::read(std::istream &stream) {
@@ -39,4 +48,9 @@ std::string Word::to_str() const {
 
 std::istream& operator>>(std::istream& stream, Word &w) {
 	return w.read(stream);
+}
+
+std::ostream& operator<<(std::ostream& stream, Word &w) {
+	stream << w.to_str();
+	return stream;
 }
