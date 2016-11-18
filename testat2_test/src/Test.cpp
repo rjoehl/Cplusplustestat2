@@ -3,7 +3,7 @@
 #include "xml_listener.h"
 #include "cute_runner.h"
 
-#include "Word.h"
+#include "word.h"
 #include <string>
 #include <sstream>
 #include <vector>
