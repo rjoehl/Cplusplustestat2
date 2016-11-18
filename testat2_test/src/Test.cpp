@@ -37,12 +37,19 @@ void wordLessThanOperatorTest() {
 	ASSERT_LESS(w1, w2);
 }
 
+void wordGreaterThanOperatorTest() {
+	std::string s1{"aabc"}, s2{"aacd"};
+	Word w1{s2}, w2{s1};
+	ASSERT_GREATER(w1, w2);
+}
+
 bool runAllTests(int argc, char const *argv[]) {
 	cute::suite s { };
 	s.push_back(CUTE(wordInputTest));
 	s.push_back(CUTE(wordConstructorInvalidArgumentTest));
 	s.push_back(CUTE(wordOutputlTest));
 	s.push_back(CUTE(wordLessThanOperatorTest));
+	s.push_back(CUTE(wordGreaterThanOperatorTest));
 	cute::xml_file_opener xmlfile(argc, argv);
 	cute::xml_listener<cute::ide_listener<>> lis(xmlfile.out);
 	auto runner { cute::makeRunner(lis, argc, argv) };

@@ -3,6 +3,8 @@
 #include <algorithm>
 #include <stdexcept>
 
+int compare(const Word &lhs, const Word &rhs);
+
 Word::Word() {
 
 }
@@ -46,16 +48,11 @@ std::string Word::to_str() const {
 }
 
 bool operator<(const Word &lhs, const Word &rhs) {
-	auto lhs_it = begin(lhs.to_str()), lhs_end = end(lhs.to_str()),
-				rhs_it = begin(rhs.to_str()), rhs_end = end(rhs.to_str());
-	for ( ; lhs_it != lhs_end && rhs_it != rhs_end; ++lhs_it, ++rhs_it) {
-		if (*lhs_it > *rhs_it) {
-			return false;
-		} else if (*lhs_it < *rhs_it) {
-			return true;
-		}
-	}
-	return lhs_it == lhs_end && rhs_it == rhs_end;
+	return compare(lhs, rhs) < 0;
+}
+
+bool operator>(const Word &lhs, const Word &rhs) {
+	return compare(lhs, rhs) > 0;
 }
 
 std::istream& operator>>(std::istream& stream, Word &w) {
@@ -65,4 +62,23 @@ std::istream& operator>>(std::istream& stream, Word &w) {
 std::ostream& operator<<(std::ostream& stream, const Word &w) {
 	stream << w.to_str();
 	return stream;
+}
+
+int compare(const Word &lhs, const Word &rhs) {
+	auto lhs_it = begin(lhs.to_str()), lhs_end = end(lhs.to_str()),
+			rhs_it = begin(rhs.to_str()), rhs_end = end(rhs.to_str());
+	for ( ; lhs_it != lhs_end && rhs_it != rhs_end; ++lhs_it, ++rhs_it) {
+		if (*lhs_it < *rhs_it) {
+			return -1;
+		} else if (*lhs_it > *rhs_it) {
+			return 1;
+		}
+	}
+	if (lhs_it == lhs_end && rhs_it == rhs_end) {
+		return 0;
+	} else if (lhs_it == lhs_end) {
+		return -1;
+	} else {
+		return 1;
+	}
 }
