@@ -11,7 +11,7 @@
 void wordInputTest() {
 	std::istringstream input{"compl33tely ~ weird !!??!! 4matted in_put"};
 	std::vector<std::string> words{};
-	for (Word w{}; (input >> w).good(); words.push_back(w.to_str()))	{ }
+	for (Word w{}; input >> w; words.push_back(w.to_str()))	{ }
 	std::vector<std::string> expected{"compl", "tely", "weird", "matted", "in", "put"};
 	ASSERT_EQUAL(expected, words);
 }

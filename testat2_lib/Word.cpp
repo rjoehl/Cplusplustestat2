@@ -8,25 +8,29 @@ Word::Word() {
 }
 
 std::istream & Word::read(std::istream &stream) {
+	char c;
+	while (true) {
+		c = stream.peek();
+		if (!stream.good()) {
+			stream.setstate(std::ios_base::failbit);
+			return stream;
+		} else if (std::isalpha(c))	{
+			break;
+		} else {
+			stream.get();
+		}
+	}
+
 	str.erase();
-	std::istreambuf_iterator<char> it{stream};
-	std::istreambuf_iterator<char> end{};
-	stream.peek();
-	for (; it != end; ++it) {
-		auto c = *it;
-		if (std::isalpha(c)) {
-			break;
+	while (true) {
+		c = stream.peek();
+		if (!stream.good() || !std::isalpha(c)) {
+			return stream;
+		} else {
+			str += c;
+			stream.get();
 		}
 	}
-	for (; it != end; ++it) {
-		auto c = *it;
-		if (!std::isalpha(c)) {
-			break;
-		}
-		str.append(1,c);
-	}
-	auto is_eof = stream.eof();
-	return stream;
 }
 
 std::string Word::to_str() const {
