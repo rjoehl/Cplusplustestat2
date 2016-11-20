@@ -50,7 +50,7 @@ bool operator==(Word const &lhs, Word const &rhs) {
 }
 
 bool operator!=(Word const &lhs, Word const &rhs) {
-	return !(lhs == rhs);
+	return compare(lhs, rhs) != 0;
 }
 
 bool operator<(Word const &lhs, Word const &rhs) {
