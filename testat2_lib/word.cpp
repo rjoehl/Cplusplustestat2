@@ -5,9 +5,7 @@
 
 int compare(Word const &lhs, Word const &rhs);
 
-Word::Word() {
-
-}
+Word::Word() { }
 
 Word::Word(std::string const &s) {
 	std::for_each(begin(s), end(s), [this](auto const &c) {
