@@ -1,3 +1,7 @@
+#include "kwic.h"
+
+#include <iostream>
+
 int main() {
-	return 1;
+	kwic_io(std::cin, std::cout);
 }
