@@ -7,14 +7,14 @@
 
 class Word {
 private:
-	std::string str{};
+	std::string word{};
 public:
 	Word();
-	Word(std::string const &s);
+	Word(std::string const &str);
 
 	std::istream & read(std::istream &stream);
 
-	std::string const & to_str() const;
+	std::string const & str() const;
 };
 
 bool operator==(Word const &lhs, Word const &rhs);

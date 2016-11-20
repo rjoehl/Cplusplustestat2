@@ -7,12 +7,12 @@ int compare(Word const &lhs, Word const &rhs);
 
 Word::Word() { }
 
-Word::Word(std::string const &s) {
-	std::for_each(begin(s), end(s), [this](auto const &c) {
+Word::Word(std::string const &str) {
+	std::for_each(begin(str), end(str), [this](auto const &c) {
 		if (!std::isalpha(c)) {
 			throw std::invalid_argument("s must contain only alphabetical characters.");
 		}
-		str += c;
+		word += c;
 	});
 }
 
@@ -29,20 +29,20 @@ std::istream & Word::read(std::istream &stream) {
 		}
 	}
 
-	str.erase();
+	word.erase();
 	while (true) {
 		char c = stream.peek();
 		if (!stream.good() || !std::isalpha(c)) {
 			return stream;
 		} else {
-			str += c;
+			word += c;
 			stream.get();
 		}
 	}
 }
 
-std::string const & Word::to_str() const {
-	return str;
+std::string const & Word::str() const {
+	return word;
 }
 
 bool operator==(Word const &lhs, Word const &rhs) {
@@ -74,12 +74,12 @@ std::istream & operator>>(std::istream &stream, Word &w) {
 }
 
 std::ostream & operator<<(std::ostream &stream, Word const &w) {
-	stream << w.to_str();
+	stream << w.str();
 	return stream;
 }
 
 int compare(Word const &lhs, Word const &rhs) {
-	auto lhs_str = lhs.to_str(), rhs_str = rhs.to_str();
+	auto lhs_str = lhs.str(), rhs_str = rhs.str();
 	auto length_diff = lhs_str.length() - rhs_str.length();
 	if (length_diff) {
 		return length_diff;
