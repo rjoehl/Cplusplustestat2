@@ -1,4 +1,3 @@
-
 #ifndef MWIC_H_
 #define KWIC_H_
 
