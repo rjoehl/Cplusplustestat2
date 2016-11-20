@@ -11,11 +11,11 @@
 
 std::vector<Word> read_words(std::istream &input);
 
-std::set<std::vector<Word>> kwic(const std::vector<Word> &words);
+std::set<std::vector<Word>> kwic(std::vector<Word> const &words);
 
 std::vector<std::vector<Word>> sort_combinations(std::set<std::vector<Word>> &combinations);
 
-void write_combinations(const std::vector<std::vector<Word>> &combinations, std::ostream &output);
+void write_combinations(std::vector<std::vector<Word>> const &combinations, std::ostream &output);
 
 void kwic_io(std::istream &input, std::ostream &output);
 

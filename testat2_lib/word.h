@@ -17,20 +17,20 @@ public:
 	std::string to_str() const;
 };
 
-bool operator==(const Word &lhs, const Word &rhs);
+bool operator==(Word const &lhs, Word const &rhs);
 
-bool operator!=(const Word &lhs, const Word &rhs);
+bool operator!=(Word const &lhs, Word const &rhs);
 
-bool operator<(const Word &lhs, const Word &rhs);
+bool operator<(Word const &lhs, Word const &rhs);
 
-bool operator<=(const Word &lhs, const Word &rhs);
+bool operator<=(Word const &lhs, Word const &rhs);
 
-bool operator>(const Word &lhs, const Word &rhs);
+bool operator>(Word const &lhs, Word const &rhs);
 
-bool operator>=(const Word &lhs, const Word &rhs);
+bool operator>=(Word const &lhs, Word const &rhs);
 
 std::istream & operator>>(std::istream &stream, Word &w);
 
-std::ostream& operator<<(std::ostream& stream, const Word &w);
+std::ostream & operator<<(std::ostream &stream, Word const &w);
 
 #endif /* WORD_H_ */

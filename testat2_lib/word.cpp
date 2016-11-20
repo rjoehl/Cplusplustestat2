@@ -3,7 +3,7 @@
 #include <algorithm>
 #include <stdexcept>
 
-int compare(const Word &lhs, const Word &rhs);
+int compare(Word const &lhs, Word const &rhs);
 
 Word::Word() {
 
@@ -47,40 +47,40 @@ std::string Word::to_str() const {
 	return str;
 }
 
-bool operator==(const Word &lhs, const Word &rhs) {
+bool operator==(Word const &lhs, Word const &rhs) {
 	return compare(lhs, rhs) == 0;
 }
 
-bool operator!=(const Word &lhs, const Word &rhs) {
+bool operator!=(Word const &lhs, Word const &rhs) {
 	return !(lhs == rhs);
 }
 
-bool operator<(const Word &lhs, const Word &rhs) {
+bool operator<(Word const &lhs, Word const &rhs) {
 	return compare(lhs, rhs) < 0;
 }
 
-bool operator<=(const Word &lhs, const Word &rhs) {
+bool operator<=(Word const &lhs, Word const &rhs) {
 	return compare(lhs, rhs) <= 0;
 }
 
-bool operator>(const Word &lhs, const Word &rhs) {
+bool operator>(Word const &lhs, Word const &rhs) {
 	return compare(lhs, rhs) > 0;
 }
 
-bool operator>=(const Word &lhs, const Word &rhs) {
+bool operator>=(Word const &lhs, Word const &rhs) {
 	return compare(lhs, rhs) >= 0;
 }
 
-std::istream& operator>>(std::istream& stream, Word &w) {
+std::istream & operator>>(std::istream &stream, Word &w) {
 	return w.read(stream);
 }
 
-std::ostream& operator<<(std::ostream& stream, const Word &w) {
+std::ostream & operator<<(std::ostream &stream, Word const &w) {
 	stream << w.to_str();
 	return stream;
 }
 
-int compare(const Word &lhs, const Word &rhs) {
+int compare(Word const &lhs, Word const &rhs) {
 	auto lhs_str = lhs.to_str(), rhs_str = rhs.to_str();
 	auto lhs_it = begin(lhs_str), lhs_end = end(lhs_str),
 			rhs_it = begin(rhs_str), rhs_end = end(rhs_str);

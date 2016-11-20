@@ -8,7 +8,7 @@ std::vector<Word> read_words(std::istream &input) {
 	return words;
 }
 
-std::set<std::vector<Word>> kwic(const std::vector<Word> &words) {
+std::set<std::vector<Word>> kwic(std::vector<Word> const &words) {
 	std::set<std::vector<Word>> combinations{};
 	std::vector<Word> end(std::begin(words), std::end(words));
 	std::vector<Word> combination{end};
@@ -26,7 +26,7 @@ std::vector<std::vector<Word>> sort_combinations(std::set<std::vector<Word>> &co
 	return sorted;
 }
 
-void write_combinations(const std::vector<std::vector<Word>> &combinations, std::ostream &output) {
+void write_combinations(std::vector<std::vector<Word>> const &combinations, std::ostream &output) {
 	std::for_each(begin(combinations), end(combinations), [&](auto &combination) {
 		std::for_each(begin(combination), end(combination), [&](auto &word) {
 			output << word << ' ';
