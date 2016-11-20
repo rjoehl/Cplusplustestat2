@@ -8,15 +8,17 @@ std::vector<Word> read_words(std::istream &input) {
 	return words;
 }
 
-std::set<std::vector<Word>> kwic(std::vector<Word> const &words) {
+std::set<std::vector<Word>> kwic(std::vector<std::vector<Word>> const &lines) {
 	std::set<std::vector<Word>> combinations{};
-	std::vector<Word> end(std::begin(words), std::end(words));
-	std::vector<Word> combination{end};
-	do {
-		std::rotate(std::begin(combination), ++std::begin(combination), std::end(combination));
-		std::vector<Word> line{combination};
-		combinations.insert(line);
-	} while (combination != end);
+	std::for_each(begin(lines), end(lines), [&combinations](auto const &words) {
+		std::vector<Word> end(std::begin(words), std::end(words));
+		std::vector<Word> combination{end};
+		do {
+			std::rotate(std::begin(combination), ++std::begin(combination), std::end(combination));
+			std::vector<Word> line{combination};
+			combinations.insert(line);
+		} while (combination != end);
+	});
 	return combinations;
 }
 
@@ -36,7 +38,8 @@ void write_combinations(std::set<std::vector<Word>> const &combinations, std::os
 void kwic_io(std::istream &input, std::ostream &output) {
 	std::vector<Word> words = read_words(input);
 
-	std::set<std::vector<Word>> combinations = kwic(words);
+	std::vector<std::vector<Word>> lines{words};
+	std::set<std::vector<Word>> combinations = kwic(lines);
 
 	write_combinations(combinations, output);
 }

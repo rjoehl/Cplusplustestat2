@@ -10,7 +10,7 @@
 
 std::vector<Word> read_words(std::istream &input);
 
-std::set<std::vector<Word>> kwic(std::vector<Word> const &words);
+std::set<std::vector<Word>> kwic(std::vector<std::vector<Word>> const &lines);
 
 void write_combinations(std::set<std::vector<Word>> const &combinations, std::ostream &output);
 

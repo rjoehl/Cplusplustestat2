@@ -80,8 +80,8 @@ void readWordsTest() {
 void kwicTest() {
 	std::string s1{"compl"}, s2{"tely"}, s3{"weird"};
 	Word w1{s1}, w2{s2}, w3{s3};
-	std::vector<Word> words{w1, w2, w3};
-	std::set<std::vector<Word>> actual = kwic(words);
+	std::vector<std::vector<Word>> lines{ {w1, w2, w3} };
+	std::set<std::vector<Word>> actual = kwic(lines);
 	std::set<std::vector<Word>> expected{
 		{w1, w2, w3},
 		{w2, w3, w1},
