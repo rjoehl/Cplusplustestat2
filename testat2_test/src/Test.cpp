@@ -101,9 +101,9 @@ void writeCombinationsTest() {
 	};
 	write_combinations(combinations, out);
 	std::string expected(
-			"asdf weird compl \n"
-			"compl asdf weird \n"
-			"weird compl asdf \n");
+			"asdf weird compl\n"
+			"compl asdf weird\n"
+			"weird compl asdf\n");
 	ASSERT_EQUAL(expected, out.str());
 }
 
@@ -112,9 +112,9 @@ void kwicIOTest() {
 	std::ostringstream out{};
 	kwic_io(in, out);
 	std::string expected(
-			"asdf weird compl \n"
-			"compl asdf weird \n"
-			"weird compl asdf \n");
+			"asdf weird compl\n"
+			"compl asdf weird\n"
+			"weird compl asdf\n");
 	ASSERT_EQUAL(expected, out.str());
 }
 
