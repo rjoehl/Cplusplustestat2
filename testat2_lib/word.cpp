@@ -80,21 +80,18 @@ std::ostream & operator<<(std::ostream &stream, Word const &w) {
 
 int compare(Word const &lhs, Word const &rhs) {
 	auto lhs_str = lhs.to_str(), rhs_str = rhs.to_str();
-	auto lhs_it = begin(lhs_str), lhs_end = end(lhs_str),
+	auto length_diff = lhs_str.length() - rhs_str.length();
+	if (length_diff) {
+		return length_diff;
+	}
+	for (auto lhs_it = begin(lhs_str), lhs_end = end(lhs_str),
 			rhs_it = begin(rhs_str), rhs_end = end(rhs_str);
-	for ( ; lhs_it != lhs_end && rhs_it != rhs_end; ++lhs_it, ++rhs_it) {
+			lhs_it != lhs_end && rhs_it != rhs_end; ++lhs_it, ++rhs_it) {
 		auto lhs_c = std::tolower(*lhs_it), rhs_c = std::tolower(*rhs_it);
-		if (lhs_c < rhs_c) {
-			return -1;
-		} else if (lhs_c > rhs_c) {
-			return 1;
+		auto c_diff = lhs_c - rhs_c;
+		if (c_diff) {
+			return c_diff;
 		}
 	}
-	if (lhs_it == lhs_end && rhs_it == rhs_end) {
-		return 0;
-	} else if (lhs_it == lhs_end) {
-		return -1;
-	} else {
-		return 1;
-	}
+	return 0;
 }
