@@ -9,8 +9,8 @@ Word::Word() {
 
 }
 
-Word::Word(std::string &s) {
-	std::for_each(begin(s), end(s), [this](auto &c) {
+Word::Word(std::string const &s) {
+	std::for_each(begin(s), end(s), [this](auto const &c) {
 		if (!std::isalpha(c)) {
 			throw std::invalid_argument("s must contain only alphabetical characters.");
 		}

@@ -10,7 +10,7 @@ private:
 	std::string str{};
 public:
 	Word();
-	Word(std::string &s);
+	Word(std::string const &s);
 
 	std::istream & read(std::istream &stream);
 
