@@ -1,4 +1,4 @@
-#ifndef MWIC_H_
+#ifndef KWIC_H_
 #define KWIC_H_
 
 #include "word.h"
