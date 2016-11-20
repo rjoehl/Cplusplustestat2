@@ -108,12 +108,18 @@ void writeCombinationsTest() {
 }
 
 void kwicIOTest() {
-	std::istringstream in{"compl33asdf ~ weird !!?"};
+	std::istringstream in{
+		"compl33asdf ~ weird !!?\n"
+		"?!! 4matted in_put"
+	};
 	std::ostringstream out{};
 	kwic_io(in, out);
 	std::string expected(
 			"asdf weird compl\n"
 			"compl asdf weird\n"
+			"in put matted\n"
+			"matted in put\n"
+			"put matted in\n"
 			"weird compl asdf\n");
 	ASSERT_EQUAL(expected, out.str());
 }

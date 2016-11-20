@@ -1,6 +1,7 @@
 #include "kwic.h"
 
 #include <algorithm>
+#include <sstream>
 
 std::vector<Word> read_words(std::istream &input) {
 	std::vector<Word> words{};
@@ -36,10 +37,12 @@ void write_combinations(std::set<std::vector<Word>> const &combinations, std::os
 }
 
 void kwic_io(std::istream &input, std::ostream &output) {
-	std::vector<Word> words = read_words(input);
-
-	std::vector<std::vector<Word>> lines{words};
+	std::vector<std::vector<Word>> lines{};
+	std::string line{};
+	while (getline(input, line)) {
+		std::istringstream line_stream{line};
+		lines.push_back(read_words(line_stream));
+	}
 	std::set<std::vector<Word>> combinations = kwic(lines);
-
 	write_combinations(combinations, output);
 }
