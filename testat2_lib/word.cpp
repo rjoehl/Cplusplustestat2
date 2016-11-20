@@ -2,6 +2,8 @@
 
 #include <algorithm>
 #include <stdexcept>
+#include <istream>
+#include <ostream>
 
 int compare(Word const &lhs, Word const &rhs);
 

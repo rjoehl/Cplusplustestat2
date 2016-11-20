@@ -5,10 +5,11 @@
 
 #include "word.h"
 #include "kwic.h"
+
 #include <string>
-#include <sstream>
 #include <vector>
 #include <stdexcept>
+#include <sstream>
 
 void wordInputTest() {
 	std::istringstream input{"compl33tely ~ weird !!??!! 4matted in_put"};

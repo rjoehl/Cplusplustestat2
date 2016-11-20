@@ -5,8 +5,7 @@
 
 #include <vector>
 #include <set>
-#include <istream>
-#include <ostream>
+#include <iosfwd>
 
 std::vector<Word> read_words(std::istream &input);
 

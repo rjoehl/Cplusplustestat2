@@ -2,8 +2,7 @@
 #define WORD_H_
 
 #include <string>
-#include <istream>
-#include <ostream>
+#include <iosfwd>
 
 class Word {
 private:

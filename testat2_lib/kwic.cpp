@@ -2,6 +2,8 @@
 
 #include <algorithm>
 #include <sstream>
+#include <istream>
+#include <ostream>
 
 std::vector<Word> read_words(std::istream &input) {
 	std::vector<Word> words{};
