@@ -23,11 +23,11 @@ std::set<std::vector<Word>> kwic(std::vector<std::vector<Word>> const &lines) {
 }
 
 void write_combinations(std::set<std::vector<Word>> const &combinations, std::ostream &output) {
-	std::for_each(begin(combinations), end(combinations), [&](auto const &combination) {
+	std::for_each(begin(combinations), end(combinations), [&output](auto const &combination) {
 		auto c_begin = begin(combination), c_end = end(combination);
 		if (c_begin != c_end) {
 			output << *c_begin++;
-			std::for_each(c_begin, c_end, [&](auto const &word) {
+			std::for_each(c_begin, c_end, [&output](auto const &word) {
 				output << ' ' << word;
 			});
 			output << '\n';
