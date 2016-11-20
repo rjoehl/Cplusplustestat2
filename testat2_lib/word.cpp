@@ -74,8 +74,7 @@ std::istream & operator>>(std::istream &stream, Word &w) {
 }
 
 std::ostream & operator<<(std::ostream &stream, Word const &w) {
-	stream << w.str();
-	return stream;
+	return stream << w.str();
 }
 
 int compare(Word const &lhs, Word const &rhs) {
