@@ -20,13 +20,7 @@ std::set<std::vector<Word>> kwic(std::vector<Word> const &words) {
 	return combinations;
 }
 
-std::vector<std::vector<Word>> sort_combinations(std::set<std::vector<Word>> &combinations) {
-	std::vector<std::vector<Word>> sorted(std::begin(combinations), std::end(combinations));
-	std::sort(begin(sorted), end(sorted));
-	return sorted;
-}
-
-void write_combinations(std::vector<std::vector<Word>> const &combinations, std::ostream &output) {
+void write_combinations(std::set<std::vector<Word>> const &combinations, std::ostream &output) {
 	std::for_each(begin(combinations), end(combinations), [&](auto &combination) {
 		std::for_each(begin(combination), end(combination), [&](auto &word) {
 			output << word << ' ';
@@ -40,7 +34,5 @@ void kwic_io(std::istream &input, std::ostream &output) {
 
 	std::set<std::vector<Word>> combinations = kwic(words);
 
-	std::vector<std::vector<Word>> sorted_combinations = sort_combinations(combinations);
-
-	write_combinations(sorted_combinations, output);
+	write_combinations(combinations, output);
 }

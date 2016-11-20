@@ -90,30 +90,13 @@ void kwicTest() {
 	ASSERT_EQUAL(expected, actual);
 }
 
-void sortCombinationsTest() {
+void writeCombinationsTest() {
+	std::ostringstream out{};
 	std::string s1{"compl"}, s2{"asdf"}, s3{"weird"};
 	Word w1{s1}, w2{s2}, w3{s3};
 	std::set<std::vector<Word>> combinations{
 		{w1, w2, w3},
 		{w2, w3, w1},
-		{w3, w1, w2},
-	};
-	std::vector<std::vector<Word>> actual = sort_combinations(combinations);
-	std::vector<std::vector<Word>> expected{
-		{w2, w3, w1},
-		{w1, w2, w3},
-		{w3, w1, w2},
-	};
-	ASSERT_EQUAL(expected, actual);
-}
-
-void writeCombinationsTest() {
-	std::ostringstream out{};
-	std::string s1{"compl"}, s2{"asdf"}, s3{"weird"};
-	Word w1{s1}, w2{s2}, w3{s3};
-	std::vector<std::vector<Word>> combinations{
-		{w2, w3, w1},
-		{w1, w2, w3},
 		{w3, w1, w2},
 	};
 	write_combinations(combinations, out);
@@ -148,7 +131,6 @@ bool runAllTests(int argc, char const *argv[]) {
 	s.push_back(CUTE(wordGreaterOrEqualThanOperatorTest));
 	s.push_back(CUTE(readWordsTest));
 	s.push_back(CUTE(kwicTest));
-	s.push_back(CUTE(sortCombinationsTest));
 	s.push_back(CUTE(writeCombinationsTest));
 	s.push_back(CUTE(kwicIOTest));
 	cute::xml_file_opener xmlfile(argc, argv);
