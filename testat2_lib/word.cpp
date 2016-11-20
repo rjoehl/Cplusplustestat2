@@ -41,7 +41,7 @@ std::istream & Word::read(std::istream &stream) {
 	}
 }
 
-std::string Word::to_str() const {
+std::string const & Word::to_str() const {
 	return str;
 }
 

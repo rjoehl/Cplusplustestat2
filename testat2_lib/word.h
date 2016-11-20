@@ -14,7 +14,7 @@ public:
 
 	std::istream & read(std::istream &stream);
 
-	std::string to_str() const;
+	std::string const & to_str() const;
 };
 
 bool operator==(Word const &lhs, Word const &rhs);
