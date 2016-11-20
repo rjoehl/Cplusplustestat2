@@ -16,31 +16,6 @@ Word::Word(std::string const &str) {
 	});
 }
 
-std::istream & Word::read(std::istream &stream) {
-	while (true) {
-		char c = stream.peek();
-		if (!stream.good()) {
-			stream.setstate(std::ios_base::failbit);
-			return stream;
-		} else if (std::isalpha(c))	{
-			break;
-		} else {
-			stream.get();
-		}
-	}
-
-	word.erase();
-	while (true) {
-		char c = stream.peek();
-		if (!stream.good() || !std::isalpha(c)) {
-			return stream;
-		} else {
-			word += c;
-			stream.get();
-		}
-	}
-}
-
 std::string const & Word::str() const {
 	return word;
 }
@@ -70,7 +45,28 @@ bool operator>=(Word const &lhs, Word const &rhs) {
 }
 
 std::istream & operator>>(std::istream &stream, Word &w) {
-	return w.read(stream);
+	while (true) {
+		char c = stream.peek();
+		if (!stream.good()) {
+			stream.setstate(std::ios_base::failbit);
+			return stream;
+		} else if (std::isalpha(c))	{
+			break;
+		} else {
+			stream.get();
+		}
+	}
+
+	w.word.erase();
+	while (true) {
+		char c = stream.peek();
+		if (!stream.good() || !std::isalpha(c)) {
+			return stream;
+		} else {
+			w.word += c;
+			stream.get();
+		}
+	}
 }
 
 std::ostream & operator<<(std::ostream &stream, Word const &w) {

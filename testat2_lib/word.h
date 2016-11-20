@@ -12,9 +12,9 @@ public:
 	Word();
 	Word(std::string const &str);
 
-	std::istream & read(std::istream &stream);
-
 	std::string const & str() const;
+
+	friend std::istream & operator>>(std::istream &stream, Word &w);
 };
 
 bool operator==(Word const &lhs, Word const &rhs);
