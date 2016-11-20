@@ -12,7 +12,7 @@ std::vector<Word> read_words(std::istream &input) {
 std::set<std::vector<Word>> kwic(std::vector<std::vector<Word>> const &lines) {
 	std::set<std::vector<Word>> combinations{};
 	std::for_each(begin(lines), end(lines), [&combinations](auto const &words) {
-		std::vector<Word> end(std::begin(words), std::end(words));
+		std::vector<Word> end{words};
 		std::vector<Word> combination{end};
 		do {
 			std::rotate(std::begin(combination), ++std::begin(combination), std::end(combination));
