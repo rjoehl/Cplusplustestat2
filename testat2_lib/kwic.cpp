@@ -12,13 +12,11 @@ std::vector<Word> read_words(std::istream &input) {
 std::set<std::vector<Word>> kwic(std::vector<std::vector<Word>> const &lines) {
 	std::set<std::vector<Word>> combinations{};
 	std::for_each(begin(lines), end(lines), [&combinations](auto const &words) {
-		std::vector<Word> end{words};
-		std::vector<Word> combination{end};
+		std::vector<Word> combination{words};
 		do {
 			std::rotate(std::begin(combination), ++std::begin(combination), std::end(combination));
-			std::vector<Word> line{combination};
-			combinations.insert(line);
-		} while (combination != end);
+			combinations.insert(std::vector<Word>{combination});
+		} while (combination != words);
 	});
 	return combinations;
 }
