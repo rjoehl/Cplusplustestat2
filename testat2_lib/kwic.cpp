@@ -4,7 +4,7 @@
 
 std::vector<Word> read_words(std::istream &input) {
 	std::vector<Word> words{};
-	for (Word w{}; input >> w; words.push_back(w))	{ }
+	for (Word w{}; input >> w; words.push_back(w)) { }
 	return words;
 }
 
