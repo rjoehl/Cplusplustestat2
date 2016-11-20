@@ -3,9 +3,9 @@
 
 #include "word.h"
 
+#include <vector>
 #include <set>
 #include <istream>
-#include <vector>
 #include <ostream>
 
 std::vector<Word> read_words(std::istream &input);
