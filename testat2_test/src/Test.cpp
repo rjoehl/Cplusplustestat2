@@ -11,7 +11,46 @@
 #include <stdexcept>
 #include <sstream>
 
-void wordInputOperatorTest() {
+void word_ctor_should_accept_alphabetical_string() {
+	Word{"Building"};
+}
+
+void word_ctor_should_throw_when_non_alphabetical_string() {
+	ASSERT_THROWS(Word w{"compl3tely"}, std::invalid_argument);
+}
+
+void word_str_should_return_the_word() {
+	ASSERT_EQUAL(Word{"Street"}.str(), "Street");
+}
+
+void word_sewer_should_equal_sewer() {
+	ASSERT_EQUAL(Word{"Sewer"}, Word{"Sewer"});
+	ASSERT_EQUAL(false, Word{"Sewer"} != Word{"Sewer"});
+	ASSERT_EQUAL(false, Word{"Sewer"} < Word{"Sewer"});
+	ASSERT_EQUAL(false, Word{"Sewer"} > Word{"Sewer"});
+	ASSERT_LESS_EQUAL(Word{"Sewer"}, Word{"Sewer"});
+	ASSERT_GREATER_EQUAL(Word{"Sewer"}, Word{"Sewer"});
+}
+
+void word_door_should_be_less_than_window() {
+	ASSERT_NOT_EQUAL_TO(Word{"Door"}, Word{"Window"});
+	ASSERT_EQUAL(true, Word{"Door"} != Word{"Window"});
+	ASSERT_LESS(Word{"Door"}, Word{"Window"});
+	ASSERT_EQUAL(false, Word{"Door"} > Word{"Window"});
+	ASSERT_LESS_EQUAL(Word{"Door"}, Word{"Window"});
+	ASSERT_EQUAL(false, Word{"Door"} >= Word{"Window"});
+}
+
+void word_window_should_be_greater_than_door() {
+	ASSERT_NOT_EQUAL_TO(Word{"Window"}, Word{"Door"});
+	ASSERT_EQUAL(true, Word{"Window"} != Word{"Door"});
+	ASSERT_GREATER(Word{"Window"}, Word{"Door"});
+	ASSERT_EQUAL(false, Word{"Window"} < Word{"Door"});
+	ASSERT_GREATER_EQUAL(Word{"Window"}, Word{"Door"});
+	ASSERT_EQUAL(false, Word{"Window"} <= Word{"Door"});
+}
+
+void word_should_input_only_alphabetical_characters() {
 	std::istringstream input{"compl33tely ~ weird !!??!! 4matted in_put"};
 	std::vector<std::string> words{};
 	for (Word w{}; input >> w; words.push_back(w.str())) { }
@@ -19,114 +58,95 @@ void wordInputOperatorTest() {
 	ASSERT_EQUAL(expected, words);
 }
 
-void wordConstructorInvalidArgumentTest() {
-	ASSERT_THROWS(Word w{"compl33tely"}, std::invalid_argument);
-}
-
-void wordOutputOperatorTest() {
-	std::string s{"completely"};
-	Word w{s};
+void word_should_output_the_word() {
+	Word w{"completely"};
 	std::ostringstream output{};
 	output << w;
-	std::string result = output.str();
-	ASSERT_EQUAL(s, result);
+	ASSERT_EQUAL(w.str(), output.str());
 }
 
-void wordLessThanOperatorTest() {
-	Word w1{"aabc"}, w2{"aacd"};
-	ASSERT_LESS(w1, w2);
+void kwic_read_words_should_read_all_words() {
+	std::istringstream input{"this is a test"};
+	std::vector<Word> expected{ {"this"}, {"is"}, {"a"}, {"test"} };
+	ASSERT_EQUAL(expected, read_words(input));
 }
 
-void wordGreaterThanOperatorTest() {
-	Word w1{"aacd"}, w2{"aabc"};
-	ASSERT_GREATER(w1, w2);
-}
-
-void wordEqualOperatorTest() {
-	Word w1{"aabc"}, w2{"aabc"};
-	ASSERT_EQUAL(w1, w2);
-}
-
-void wordNotEqualOperatorTest() {
-	Word w1{"aabc"}, w2{"aacd"};
-	ASSERT_NOT_EQUAL_TO(w1, w2);
-}
-
-void wordLessOrEqualThanOperatorTest() {
-	Word w1{"aabc"}, w2{"aacd"};
-	ASSERT_LESS_EQUAL(w1, w2);
-}
-
-void wordGreaterOrEqualThanOperatorTest() {
-	Word w1{"aacd"}, w2{"aabc"};
-	ASSERT_GREATER_EQUAL(w1, w2);
-}
-
-void readWordsTest() {
-	std::istringstream input{"compl33tely ~ weird !!?"};
-	std::vector<Word> words = read_words(input);
-	std::vector<Word> expected{ {"compl"}, {"tely"}, {"weird"} };
-	ASSERT_EQUAL(expected, words);
-}
-
-void kwicTest() {
-	Word w1{"compl"}, w2{"tely"}, w3{"weird"};
-	std::set<std::vector<Word>> actual = kwic({ {w1, w2, w3} });
+void kwic_kwic_should_generate_all_combinations() {
+	Word this_{"this"}, is{"is"}, a{"a"}, test{"test"}, another{"another"};
 	std::set<std::vector<Word>> expected{
-		{w1, w2, w3},
-		{w2, w3, w1},
-		{w3, w1, w2},
+		{this_, is, a, test},
+		{is, a, test, this_},
+		{a, test, this_, is},
+		{test, this_, is, a},
+		{this_, is, another, test},
+		{is, another, test, this_},
+		{another, test, this_, is},
+		{test, this_, is, another}
 	};
-	ASSERT_EQUAL(expected, actual);
+	ASSERT_EQUAL(expected, kwic({
+		{this_, is, a, test},
+		{this_, is, another, test}
+	}));
 }
 
-void writeCombinationsTest() {
-	std::ostringstream out{};
-	Word w1{"compl"}, w2{"asdf"}, w3{"weird"};
+void kwic_write_combinations_should_write_all_combinations() {
+	Word this_{"this"}, is{"is"}, a{"a"}, test{"test"}, another{"another"};
+	std::ostringstream output{};
 	write_combinations({
-		{w1, w2, w3},
-		{w2, w3, w1},
-		{w3, w1, w2},
-	}, out);
+		{this_, is, a, test},
+		{is, a, test, this_},
+		{a, test, this_, is},
+		{test, this_, is, a},
+		{this_, is, another, test},
+		{is, another, test, this_},
+		{another, test, this_, is},
+		{test, this_, is, another}
+	}, output);
 	std::string expected(
-			"asdf weird compl\n"
-			"compl asdf weird\n"
-			"weird compl asdf\n");
-	ASSERT_EQUAL(expected, out.str());
+			"a test this is\n"
+			"another test this is\n"
+			"is a test this\n"
+			"is another test this\n"
+			"test this is a\n"
+			"test this is another\n"
+			"this is a test\n"
+			"this is another test\n");
+	ASSERT_EQUAL(expected, output.str());
 }
 
-void kwicIOTest() {
-	std::istringstream in{
-		"compl33asdf ~ weird !!?\n"
-		"?!! 4matted in_put"
+void kwic_kwic_io_should_read_the_lines_and_write_all_combinations() {
+	std::istringstream input{
+		"this is a test\n"
+		"this is another test"
 	};
-	std::ostringstream out{};
-	kwic_io(in, out);
+	std::ostringstream output{};
+	kwic_io(input, output);
 	std::string expected(
-			"asdf weird compl\n"
-			"compl asdf weird\n"
-			"in put matted\n"
-			"matted in put\n"
-			"put matted in\n"
-			"weird compl asdf\n");
-	ASSERT_EQUAL(expected, out.str());
+			"a test this is\n"
+			"another test this is\n"
+			"is a test this\n"
+			"is another test this\n"
+			"test this is a\n"
+			"test this is another\n"
+			"this is a test\n"
+			"this is another test\n");
+	ASSERT_EQUAL(expected, output.str());
 }
 
 bool runAllTests(int argc, char const *argv[]) {
 	cute::suite s { };
-	s.push_back(CUTE(wordInputOperatorTest));
-	s.push_back(CUTE(wordConstructorInvalidArgumentTest));
-	s.push_back(CUTE(wordOutputOperatorTest));
-	s.push_back(CUTE(wordLessThanOperatorTest));
-	s.push_back(CUTE(wordGreaterThanOperatorTest));
-	s.push_back(CUTE(wordEqualOperatorTest));
-	s.push_back(CUTE(wordNotEqualOperatorTest));
-	s.push_back(CUTE(wordLessOrEqualThanOperatorTest));
-	s.push_back(CUTE(wordGreaterOrEqualThanOperatorTest));
-	s.push_back(CUTE(readWordsTest));
-	s.push_back(CUTE(kwicTest));
-	s.push_back(CUTE(writeCombinationsTest));
-	s.push_back(CUTE(kwicIOTest));
+	s.push_back(CUTE(word_ctor_should_accept_alphabetical_string));
+	s.push_back(CUTE(word_ctor_should_throw_when_non_alphabetical_string));
+	s.push_back(CUTE(word_str_should_return_the_word));
+	s.push_back(CUTE(word_sewer_should_equal_sewer));
+	s.push_back(CUTE(word_door_should_be_less_than_window));
+	s.push_back(CUTE(word_window_should_be_greater_than_door));
+	s.push_back(CUTE(word_should_input_only_alphabetical_characters));
+	s.push_back(CUTE(word_should_output_the_word));
+	s.push_back(CUTE(kwic_read_words_should_read_all_words));
+	s.push_back(CUTE(kwic_kwic_should_generate_all_combinations));
+	s.push_back(CUTE(kwic_write_combinations_should_write_all_combinations));
+	s.push_back(CUTE(kwic_kwic_io_should_read_the_lines_and_write_all_combinations));
 	cute::xml_file_opener xmlfile(argc, argv);
 	cute::xml_listener<cute::ide_listener<>> lis(xmlfile.out);
 	auto runner { cute::makeRunner(lis, argc, argv) };
