@@ -11,7 +11,7 @@
 #include <stdexcept>
 #include <sstream>
 
-void wordInputTest() {
+void wordInputOperatorTest() {
 	std::istringstream input{"compl33tely ~ weird !!??!! 4matted in_put"};
 	std::vector<std::string> words{};
 	for (Word w{}; input >> w; words.push_back(w.str())) { }
@@ -23,7 +23,7 @@ void wordConstructorInvalidArgumentTest() {
 	ASSERT_THROWS(Word w{"compl33tely"}, std::invalid_argument);
 }
 
-void wordOutputlTest() {
+void wordOutputOperatorTest() {
 	std::string s{"completely"};
 	Word w{s};
 	std::ostringstream output{};
@@ -114,9 +114,9 @@ void kwicIOTest() {
 
 bool runAllTests(int argc, char const *argv[]) {
 	cute::suite s { };
-	s.push_back(CUTE(wordInputTest));
+	s.push_back(CUTE(wordInputOperatorTest));
 	s.push_back(CUTE(wordConstructorInvalidArgumentTest));
-	s.push_back(CUTE(wordOutputlTest));
+	s.push_back(CUTE(wordOutputOperatorTest));
 	s.push_back(CUTE(wordLessThanOperatorTest));
 	s.push_back(CUTE(wordGreaterThanOperatorTest));
 	s.push_back(CUTE(wordEqualOperatorTest));
