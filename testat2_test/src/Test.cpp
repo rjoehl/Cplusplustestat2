@@ -20,8 +20,7 @@ void wordInputTest() {
 }
 
 void wordConstructorInvalidArgumentTest() {
-	std::string s{"compl33tely"};
-	ASSERT_THROWS(Word w{s}, std::invalid_argument);
+	ASSERT_THROWS(Word w{"compl33tely"}, std::invalid_argument);
 }
 
 void wordOutputlTest() {
@@ -34,55 +33,45 @@ void wordOutputlTest() {
 }
 
 void wordLessThanOperatorTest() {
-	std::string s1{"aabc"}, s2{"aacd"};
-	Word w1{s1}, w2{s2};
+	Word w1{"aabc"}, w2{"aacd"};
 	ASSERT_LESS(w1, w2);
 }
 
 void wordGreaterThanOperatorTest() {
-	std::string s1{"aabc"}, s2{"aacd"};
-	Word w1{s2}, w2{s1};
+	Word w1{"aacd"}, w2{"aabc"};
 	ASSERT_GREATER(w1, w2);
 }
 
 void wordEqualOperatorTest() {
-	std::string s1{"aabc"}, s2{"aabc"};
-	Word w1{s1}, w2{s2};
+	Word w1{"aabc"}, w2{"aabc"};
 	ASSERT_EQUAL(w1, w2);
 }
 
 void wordNotEqualOperatorTest() {
-	std::string s1{"aabc"}, s2{"aacd"};
-	Word w1{s1}, w2{s2};
+	Word w1{"aabc"}, w2{"aacd"};
 	ASSERT_NOT_EQUAL_TO(w1, w2);
 }
 
 void wordLessOrEqualThanOperatorTest() {
-	std::string s1{"aabc"}, s2{"aacd"};
-	Word w1{s1}, w2{s2};
+	Word w1{"aabc"}, w2{"aacd"};
 	ASSERT_LESS_EQUAL(w1, w2);
 }
 
 void wordGreaterOrEqualThanOperatorTest() {
-	std::string s1{"aabc"}, s2{"aacd"};
-	Word w1{s2}, w2{s1};
+	Word w1{"aacd"}, w2{"aabc"};
 	ASSERT_GREATER_EQUAL(w1, w2);
 }
 
 void readWordsTest() {
 	std::istringstream input{"compl33tely ~ weird !!?"};
 	std::vector<Word> words = read_words(input);
-	std::string s1{"compl"}, s2{"tely"}, s3{"weird"};
-	Word w1{s1}, w2{s2}, w3{s3};
-	std::vector<Word> expected{w1, w2, w3};
+	std::vector<Word> expected{ {"compl"}, {"tely"}, {"weird"} };
 	ASSERT_EQUAL(expected, words);
 }
 
 void kwicTest() {
-	std::string s1{"compl"}, s2{"tely"}, s3{"weird"};
-	Word w1{s1}, w2{s2}, w3{s3};
-	std::vector<std::vector<Word>> lines{ {w1, w2, w3} };
-	std::set<std::vector<Word>> actual = kwic(lines);
+	Word w1{"compl"}, w2{"tely"}, w3{"weird"};
+	std::set<std::vector<Word>> actual = kwic({ {w1, w2, w3} });
 	std::set<std::vector<Word>> expected{
 		{w1, w2, w3},
 		{w2, w3, w1},
@@ -93,14 +82,12 @@ void kwicTest() {
 
 void writeCombinationsTest() {
 	std::ostringstream out{};
-	std::string s1{"compl"}, s2{"asdf"}, s3{"weird"};
-	Word w1{s1}, w2{s2}, w3{s3};
-	std::set<std::vector<Word>> combinations{
+	Word w1{"compl"}, w2{"asdf"}, w3{"weird"};
+	write_combinations({
 		{w1, w2, w3},
 		{w2, w3, w1},
 		{w3, w1, w2},
-	};
-	write_combinations(combinations, out);
+	}, out);
 	std::string expected(
 			"asdf weird compl\n"
 			"compl asdf weird\n"
